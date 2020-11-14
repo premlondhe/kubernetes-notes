@@ -1,9 +1,6 @@
 # Domain - Cluster Architecture, Installation & Configuration
 
-The code mentioned in this document are used in the Certified Kubernetes Administrator 2020 course.
-
-https://www.udemy.com/course/certified-kubernetes-administrator/?couponCode=CKA-SEP-20
-
+Refer below Udemy course for understanding kuberneteshttps://www.udemy.com/course/certified-kubernetes-administrator/
 
 # Video-Document Mapper
 
