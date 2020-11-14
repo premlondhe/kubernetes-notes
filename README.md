@@ -1,12 +1,7 @@
-# Certified Kubernetes Administrator - KPLABS Course
+# Certified Kubernetes Administrator - Prem Londhe
 
-This is a central document which contains all the commands and code files used throughout the video course. 
-
-https://www.udemy.com/course/certified-kubernetes-administrator/?couponCode=CKA-AUG-20
-
-# Important Note
-
-The GitHub Repository and the course are in the stage of upgradation to be in-tune with the new CKA certifications. You might see many changes within the repository this week.
+Refer below Udemy course for understanding kubernetes
+https://www.udemy.com/course/certified-kubernetes-administrator/
 
 # Exam Domains
 
