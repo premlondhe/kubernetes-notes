@@ -50,7 +50,7 @@ kubeadm join 10.240.0.7:6443 --token hwu7xr.gbox0rys7x1pbzag \
 ```
 
 ##### Step 5: Install Network Addon (flannel)
-On master node now when you run ```kubectl get nodes``` you will see the status "NotReady", hence you have to execute below command on master. Hint: In kubernetes.io, under search type "kube-flannel.yml".
+On master node now when you run ```kubectl get nodes``` you will see the status "NotReady", hence you have to execute below command on master. Hint: In kubernetes.io, under search type **kube-flannel.yml**.
 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
