@@ -1,3 +1,5 @@
+#### When you try to do ```kubectl exec``` you will see permissions error. To fix that we have to apply below ClusterRole & ClusterRoleBindings.
+
 ```sh
 cat <<EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1beta1
