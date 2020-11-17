@@ -12,9 +12,9 @@ kubectl exec -it busybox -- sh
 nslookup google.com
 ping 8.8.8.8
 ```
-#### Step 3: Install CoreDNS:
+#### Step 3: Install CoreDNS: Open below URL in browser and save on your master node with name ```coredns.yaml```.
 ```sh
-wget https://github.com/premlondhe/kubernetes-notes/blob/master/Domain%206%20-%20Cluster%20Architecture%2C%20Installation%20%26%20Configuration/coredns.yaml
+browser:> https://github.com/premlondhe/kubernetes-notes/blob/master/Domain%206%20-%20Cluster%20Architecture%2C%20Installation%20%26%20Configuration/coredns.yaml
 ```
 ```sh
 kubectl apply -f coredns.yaml
