@@ -7,11 +7,19 @@ https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver
 ```sh
 kubectl exec -it busybox -- sh
 ```
+
+You will see below error on executing above command -
+```sh 
+root@kube-prem-master1:~/svc# kubectl exec -it busybox -- sh
+Error from server: error dialing backend: dial tcp: lookup kube-prem-worker1 on 127.0.0.53:53: server misbehaving
+```
+
 #### Step 2: Installing nslookup utility
 ```sh
 yum -y install bind-utils
 nslookup WORKER-NODE-X
 ```
+
 #### Step 3: Modify the Configuration file for API Service
 ```sh
 nano /etc/systemd/system/kube-apiserver.service
