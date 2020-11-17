@@ -244,6 +244,13 @@ WantedBy=multi-user.target
 EOF
 ```
 
+#### Step 4.1: Disable swap if its on
+```sh 
+swapon -s
+swapoff /partition/name
+```
+
+
 #### Step 5:
 ```sh
 systemctl start kubelet
