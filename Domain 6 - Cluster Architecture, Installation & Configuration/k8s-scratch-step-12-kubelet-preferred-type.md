@@ -19,6 +19,12 @@ Error from server: error dialing backend: dial tcp: lookup kube-prem-worker1 on 
 yum -y install bind-utils
 nslookup WORKER-NODE-X
 ```
+### Step 2.1: 
+In the output, You will see the **Hostname** and **InternalIP** under **Addresses** section, so we will prefer connecting internal IP instead of hostname. 
+
+```sh 
+kubectl describe node WORKER-NODE-X
+```
 
 #### Step 3: Modify the Configuration file for API Service
 ```sh
@@ -26,10 +32,6 @@ nano /etc/systemd/system/kube-apiserver.service
 ```
 
 ##### Add following flag:
-```sh 
-kubectl describe node WORKER-NODE-X
-```
-In the output, You will see the **Hostname** and **InternalIP** under **Addresses** section, so we will prefer connecting internal IP instead of hostname. 
 
 ```sh
 --kubelet-preferred-address-types InternalIP
