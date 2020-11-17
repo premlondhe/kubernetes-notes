@@ -268,8 +268,5 @@ kubectl get nodes
 root@kube-prem-master1:~/certificates# kubectl get nodes
 NAME                STATUS     ROLES    AGE    VERSION
 kube-prem-worker1   NotReady   <none>   119s   v1.19.0
-root@kube-prem-master1:~/certificates# kubectl get nodes
-NAME                STATUS     ROLES    AGE     VERSION
-kube-prem-worker1   NotReady   <none>   4m48s   v1.19.0
 ```
 
