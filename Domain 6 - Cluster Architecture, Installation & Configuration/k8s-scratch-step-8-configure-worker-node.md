@@ -258,3 +258,18 @@ systemctl start kube-proxy
 systemctl enable kubelet
 systemctl enable kube-proxy
 ```
+
+#### Step 6: On Master node check node is visible.
+
+```sh 
+kubectl get nodes
+```
+```sh
+root@kube-prem-master1:~/certificates# kubectl get nodes
+NAME                STATUS     ROLES    AGE    VERSION
+kube-prem-worker1   NotReady   <none>   119s   v1.19.0
+root@kube-prem-master1:~/certificates# kubectl get nodes
+NAME                STATUS     ROLES    AGE     VERSION
+kube-prem-worker1   NotReady   <none>   4m48s   v1.19.0
+```
+
