@@ -1,6 +1,11 @@
 #### When you try to do ```kubectl exec``` you will see permissions error. To fix that we have to apply below ClusterRole & ClusterRoleBindings.
 
 ```sh
+root@kube-prem-master1:~# kubectl exec nginx-pod -- bash
+error: unable to upgrade connection: Forbidden (user=kube-apiserver, verb=create, resource=nodes, subresource=proxy)
+```
+
+```sh
 cat <<EOF | kubectl apply -f -
 apiVersion: rbac.authorization.k8s.io/v1beta1
 kind: ClusterRole
