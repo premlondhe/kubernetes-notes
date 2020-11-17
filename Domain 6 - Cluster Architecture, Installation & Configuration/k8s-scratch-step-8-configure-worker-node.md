@@ -95,7 +95,7 @@ cd /root/certificates
 mkdir /var/lib/kubernetes
 cp ca.crt /var/lib/kubernetes
 mkdir /var/lib/kubelet
-mv ${WORKER_HOSTNAME}.crt  ${WORKER_HOSTNAME}.key  kube-proxy.crt  kube-proxy.key /var/lib/kubelet/
+mv ${WORKER_HOSTNAME}.crt  ${WORKER_HOSTNAME}.key  kube-proxy.crt  kube-proxy.key ca.crt /var/lib/kubelet/
 ```
 #### Step 5: Generate Kubelet Configuration YAML File:
 ```sh
@@ -152,7 +152,6 @@ EOF
 
 ```sh
 cd /var/lib/kubelet
-cp /var/lib/kubernetes/ca.crt .
 SERVER_IP=IP-OF-API-SERVER
 ```
 ```sh
