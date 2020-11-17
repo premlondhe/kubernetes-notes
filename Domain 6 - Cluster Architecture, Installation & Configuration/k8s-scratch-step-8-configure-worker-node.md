@@ -8,16 +8,30 @@ sysctl -w net.ipv4.conf.all.forwarding=1
 cd  /root/binaries/kubernetes/node/bin/
 cp kube-proxy kubectl kubelet /usr/local/bin
 ```
+
 #### Step 1: Generate Kubelet Certificate for Worker Node.
 
 Note:
    1. Replace the IP Address and Hostname field in the below configurations according to your enviornement.
    2. Run this in the Kubernetes Master Node
+   
+**NOTE:** Run ```hostname``` command on worker node to get **WORKER-NODE-HOSTNAME**. WORKER-IP1 & WORKER-IP2 are the Public/Private ips of Azure/AWS VM    
+
+**ON Master Node**
+```sh
+WORKER_HOSTNAME="WORKER-NODE-HOSTNAME"
+```
+
+**ON Worker Node**
+```sh
+WORKER_HOSTNAME="WORKER-NODE-HOSTNAME"
+```
+
 ```sh
 cd /root/certificates
 ```
 ```sh
-cat > openssl-kplabs-cka-worker.cnf <<EOF
+cat > openssl-${WORKER_HOSTNAME}.cnf <<EOF
 [req]
 req_extensions = v3_req
 distinguished_name = req_distinguished_name
@@ -27,16 +41,17 @@ basicConstraints = CA:FALSE
 keyUsage = nonRepudiation, digitalSignature, keyEncipherment
 subjectAltName = @alt_names
 [alt_names]
-DNS.1 = kplabs-cka-worker
-IP.1 = WORKER-IP
+DNS.1 = ${WORKER_HOSTNAME}
+IP.1 = WORKER-IP1
+IP.2 = WORKER-IP2
 EOF
 ```
 ```sh
-openssl genrsa -out kplabs-cka-worker.key 2048
+openssl genrsa -out ${WORKER_HOSTNAME}.key 2048
 ```
 ```sh
-openssl req -new -key kplabs-cka-worker.key -subj "/CN=system:node:kplabs-cka-worker/O=system:nodes" -out kplabs-cka-worker.csr -config openssl-kplabs-cka-worker.cnf
-openssl x509 -req -in kplabs-cka-worker.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out kplabs-cka-worker.crt -extensions v3_req -extfile openssl-kplabs-cka-worker.cnf -days 1000
+openssl req -new -key ${WORKER_HOSTNAME}.key -subj "/CN=system:node:${WORKER_HOSTNAME}/O=system:nodes" -out ${WORKER_HOSTNAME}.csr -config openssl-${WORKER_HOSTNAME}.cnf
+openssl x509 -req -in ${WORKER_HOSTNAME}.csr -CA ca.crt -CAkey ca.key -CAcreateserial  -out ${WORKER_HOSTNAME}.crt -extensions v3_req -extfile openssl-${WORKER_HOSTNAME}.cnf -days 1000
 ```
 
 #### Step 2: Generate kube-proxy certificate:
@@ -65,13 +80,13 @@ passwd zeal5872#
 ```
 - Master Node:
 ```sh
-scp kube-proxy.crt kube-proxy.key kplabs-cka-worker.crt kplabs-cka-worker.key ca.crt zeal@161.35.205.5:/tmp
+scp kube-proxy.crt kube-proxy.key ${WORKER_HOSTNAME}.crt ${WORKER_HOSTNAME}.key ca.crt zeal@161.35.205.5:/tmp
 
 ```
 - Worker Node:
 ```sh
 cd /tmp
-mv kube-proxy.crt kube-proxy.key kplabs-cka-worker.crt kplabs-cka-worker.key ca.crt /root/certificates
+mv kube-proxy.crt kube-proxy.key ${WORKER_HOSTNAME}.crt ${WORKER_HOSTNAME}.key ca.crt /root/certificates
 
 ```
 #### Step 4: Move Certificates to Specific Location.
@@ -80,7 +95,7 @@ cd /root/certificates
 mkdir /var/lib/kubernetes
 cp ca.crt /var/lib/kubernetes
 mkdir /var/lib/kubelet
-mv kplabs-cka-worker.crt  kplabs-cka-worker.key  kube-proxy.crt  kube-proxy.key /var/lib/kubelet/
+mv ${WORKER_HOSTNAME}.crt  ${WORKER_HOSTNAME}.key  kube-proxy.crt  kube-proxy.key /var/lib/kubelet/
 ```
 #### Step 5: Generate Kubelet Configuration YAML File:
 ```sh
@@ -118,8 +133,8 @@ ExecStart=/usr/local/bin/kubelet \\
   --config=/var/lib/kubelet/kubelet-config.yaml \\
   --image-pull-progress-deadline=2m \\
   --kubeconfig=/var/lib/kubelet/kubeconfig \\
-  --tls-cert-file=/var/lib/kubelet/kplabs-cka-worker.crt \\
-  --tls-private-key-file=/var/lib/kubelet/kplabs-cka-worker.key \\
+  --tls-cert-file=/var/lib/kubelet/${WORKER_HOSTNAME}.crt \\
+  --tls-private-key-file=/var/lib/kubelet/${WORKER_HOSTNAME}.key \\
   --network-plugin=cni \\
   --register-node=true \\
   --v=2 \\
@@ -146,24 +161,24 @@ SERVER_IP=IP-OF-API-SERVER
     --certificate-authority=ca.crt \
     --embed-certs=true \
     --server=https://${SERVER_IP}:6443 \
-    --kubeconfig=kplabs-cka-worker.kubeconfig
+    --kubeconfig=${WORKER_HOSTNAME}.kubeconfig
 
-  kubectl config set-credentials system:node:kplabs-cka-worker \
-    --client-certificate=kplabs-cka-worker.crt \
-    --client-key=kplabs-cka-worker.key \
+  kubectl config set-credentials system:node:${WORKER_HOSTNAME} \
+    --client-certificate=${WORKER_HOSTNAME}.crt \
+    --client-key=${WORKER_HOSTNAME}.key \
     --embed-certs=true \
-    --kubeconfig=kplabs-cka-worker.kubeconfig
+    --kubeconfig=${WORKER_HOSTNAME}.kubeconfig
 
   kubectl config set-context default \
     --cluster=kubernetes-from-scratch \
-    --user=system:node:kplabs-cka-worker \
-    --kubeconfig=kplabs-cka-worker.kubeconfig
+    --user=system:node:${WORKER_HOSTNAME} \
+    --kubeconfig=${WORKER_HOSTNAME}.kubeconfig
 
-  kubectl config use-context default --kubeconfig=kplabs-cka-worker.kubeconfig
+  kubectl config use-context default --kubeconfig=${WORKER_HOSTNAME}.kubeconfig
 }
 ```
 ```sh
-mv kplabs-cka-worker.kubeconfig kubeconfig
+mv ${WORKER_HOSTNAME}.kubeconfig kubeconfig
 ```
 ### Part 2 - Kube-Proxy
 
