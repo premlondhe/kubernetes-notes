@@ -8,6 +8,15 @@ sysctl -w net.ipv4.conf.all.forwarding=1
 cd  /root/binaries/kubernetes/node/bin/
 cp kube-proxy kubectl kubelet /usr/local/bin
 ```
+#### Update hosts file with hostname & private ips of appropriate VMs.
+```sh 
+vim /etc/hosts
+10.240.0.11 kube-prem-master1
+```
+```sh 
+vim /etc/hosts
+10.240.0.15 kube-prem-worker1
+```
 
 #### Step 1: Generate Kubelet Certificate for Worker Node.
 
