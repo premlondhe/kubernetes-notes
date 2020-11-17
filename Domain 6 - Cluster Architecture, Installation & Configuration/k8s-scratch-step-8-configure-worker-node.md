@@ -15,7 +15,7 @@ Note:
    1. Replace the IP Address and Hostname field in the below configurations according to your enviornement.
    2. Run this in the Kubernetes Master Node
    
-**NOTE:** Run ```hostname``` command on worker node to get **WORKER-NODE-HOSTNAME**. WORKER-IP1 & WORKER-IP2 are the Public/Private ips of Azure/AWS VM    
+**NOTE:** Run ```hostname``` command on worker node to get **WORKER-NODE-HOSTNAME**. **WORKER-IP1** & **WORKER-IP2** are the Public/Private ips of Azure/AWS VM    
 
 **ON Master Node**
 ```sh
