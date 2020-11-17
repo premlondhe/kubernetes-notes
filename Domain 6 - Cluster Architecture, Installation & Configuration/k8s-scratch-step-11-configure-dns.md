@@ -14,7 +14,7 @@ ping 8.8.8.8
 ```
 #### Step 3: Install CoreDNS:
 ```sh
-wget https://raw.githubusercontent.com/zealvora/certified-kubernetes-administrator/master/Domain%206%20-%20Cluster%20Architecture%2C%20Installation%20%26%20Configuration/coredns.yaml
+wget https://github.com/premlondhe/kubernetes-notes/blob/master/Domain%206%20-%20Cluster%20Architecture%2C%20Installation%20%26%20Configuration/coredns.yaml
 ```
 ```sh
 kubectl apply -f coredns.yaml
