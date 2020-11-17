@@ -3,10 +3,11 @@
 Step 1 to 3 will be on Worker node
 Step 4 will be on Master node.
 
-#### Step 1: Download CNI Plugins:
+#### Step 1: Download Latest CNI Plugins:
 ```sh
 cd /tmp
-wget https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-amd64-v0.8.6.tgz
+# wget https://github.com/containernetworking/plugins/releases/download/v0.8.6/cni-plugins-linux-amd64-v0.8.6.tgz
+wget https://github.com/containernetworking/plugins/releases/download/v0.8.7/cni-plugins-linux-amd64-v0.8.7.tgz
 ```
 #### Step 2: Configure Base Directories:
 ```sh
