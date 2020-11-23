@@ -49,6 +49,11 @@ kubeadm join 10.240.0.7:6443 --token hwu7xr.gbox0rys7x1pbzag \
      --discovery-token-ca-cert-hash sha256:1c50a509344c41178eac9b5a79849c3141279c3ac0f2842ffc74ffec82847a94
 ```
 
+If you have forgotten to save the above received kubeadm join command, then you can create a new token and use it for joining worker nodes to the cluster.
+```sh 
+ $ kubeadm token create --print-join-command
+```
+
 ##### Step 5: Install Network Addon (flannel)
 On master node now when you run ```kubectl get nodes``` you will see the status "NotReady", hence you have to execute below command on master. Hint: In kubernetes.io, under search type **kube-flannel.yml**.
 
