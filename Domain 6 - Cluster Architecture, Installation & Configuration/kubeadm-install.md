@@ -62,7 +62,8 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documen
 ```
 
 
-**NOTE:** Alternatively you can also use weave works plugin through below documentation 
+**NOTE:** Alternatively you can also use weave works plugin. Below command is in this documentation https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
 ```sh 
-kubectl apply -f https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
 ```
+
