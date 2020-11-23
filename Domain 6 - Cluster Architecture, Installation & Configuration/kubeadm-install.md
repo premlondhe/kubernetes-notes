@@ -55,3 +55,9 @@ On master node now when you run ```kubectl get nodes``` you will see the status 
 ```sh
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
+
+
+**NOTE:** Alternatively you can also use weave works plugin through below documentation 
+```sh 
+kubectl apply -f https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/high-availability/
+```
